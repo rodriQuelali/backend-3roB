@@ -17,7 +17,7 @@ class Categoria{
         $sql=$db->query('SELECT * FROM categoria');
         //cargar los registros 
         foreach($sql->fetchAll() as $categoria){
-            $listaCategoria[]=new Categoria($categoria['Cod_categoria'],$usuario['Nombre_ategoria']);
+            $listaCategoria[]=new Categoria($categoria['Cod_categoria'],$usuario['Nombre_categoria']);
         }
         return $listaCategoria;
     }
