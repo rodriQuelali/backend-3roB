@@ -3,7 +3,7 @@ require_once "db.php";
 
 class Model_libro{
 
-    public function modelLibroList()
+    public function modelLibroListar()
     {
         # code...
         $listar = "SELECT * FROM libro";

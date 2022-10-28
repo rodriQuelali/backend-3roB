@@ -4,7 +4,7 @@ require_once "model/Libro_model.php";
 
 class Libro {
 
-    public function ListLibro()
+    public function ListarLibro()
     {
         # code...
         $returnDatos = array();
@@ -14,5 +14,5 @@ class Libro {
     }
 
 }
-
+?>
 	
