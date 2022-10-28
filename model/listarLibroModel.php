@@ -6,7 +6,7 @@ class Model_libro{
     public function modelLibroList()
     {
         # code...
-        $listar = "SELECT * FROM alumnos";
+        $listar = "SELECT * FROM libro";
         $returnDatos = "";
         $returnDatos = array();
         //nueva forma para realizar una instancia
@@ -14,7 +14,7 @@ class Model_libro{
             while ($row = $query->fetch_assoc()) {
                 # code...
                 $returnDatos [] = array(
-                    "nombre"=>$row["nombre"]
+                    "titulo_libro"=>$row["titulo_libro"]
                 );
                //return $row;
             }
@@ -22,3 +22,4 @@ class Model_libro{
         return ($returnDatos);
     }
 }
+?>
