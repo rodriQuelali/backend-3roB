@@ -48,5 +48,31 @@
             echo json_encode("datos vacios");
         }
     }
+
+    public function  modelLibroFiltrarFecha($fechaIni,$fechaFin)
+    {
+ 
+        if(!empty($fechaIni) && !empty($fechaFin)){
+
+        $consulta= "SELECT c.nombre_categoria as cat ,count(*) as numero_libros FROM libro as l INNER JOIN categoria as c ON l.id_categoria =c.cod_categoria WHERE l.fecha_publicacion BETWEEN '$fechaIni' AND '$fechaFin' GROUP BY c.nombre_categoria";
+        $returnDatos = "";
+        $returnDatos = array();
+        //nueva forma para realizar una instancia
+        $query = Conexion::conect()->query($consulta);
+            while ($row = $query->fetch_assoc()) {
+                $returnDatos [] = array(
+                    "nombre_categoria"=>$row["cat"],
+                    "cantidad_libro"=>$row["numero_libros"]
+                    
+                );
+               
+            }
+
+        return ($returnDatos);
+
+        }else{
+            echo json_encode("datos vacios");
+        }
+    }
 }
  ?>

@@ -24,5 +24,14 @@ class Libro{
         $res = Model_Libro::modelLibroListarCategoria($categoria);
         echo json_encode($res);
     }
+
+    public function FiltrarLibroProFecha()
+    {
+        $fechaIni=$_GET["txtFechaInicio"];
+        $fechaFin=$_GET["txtFechaFin"];
+        $returnDatos = array();
+        $res = Model_Libro::modelLibroFiltrarFecha($fechaIni,$fechaFin);
+        echo json_encode($res);
+    } 
 }
 ?>
