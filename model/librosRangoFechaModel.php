@@ -3,44 +3,31 @@
 require_once "db.php";
 
 class ModeloLibros{
-	
-
-	if(isset($_GET["fecha_publicacion"])){
-
-		$fechaInicial = $_GET["fecha_publicacion"];
-		$fechaFinal = $_GET["fechaFinal"];
-	
-	}else{
-	
-	$fechaInicial = null;
-	$fechaFinal = null;
-	
-	}
 
 /*=============================================
 	RANGO POR FECHAS 
 	=============================================*/	
 
-	static public function mdlRangoFechas( $tabla, $fechaInicial, $fechaFinal){
+	 function mdlRangoFechas( $tabla, $fechaInicial, $fechaFinal){
 
 		if($fechaInicial == null){
 
-			$stmt = db::conectar()->prepare("SELECT * FROM $tabla ORDER BY id ASC");
+			$rango = Conexion::conectar()->prepare("SELECT * FROM $tabla ORDER BY id ASC");
 
-			$stmt -> execute();
+			$rango -> execute();
 
-			return $stmt -> fetchAll();	 
+			return $rango -> fetchAll();	 
 
 
 		}else if($fechaInicial == $fechaFinal){
 
-			$stmt = db::conectar()->prepare("SELECT * FROM $tabla  WHERE fecha_publicacion like '%$fechaFinal%'");
+			$rango= Conexion::conectar()->prepare("SELECT * FROM $tabla  WHERE fecha_publicacion like '%$fechaFinal%'");
 
-			$stmt -> bindParam(":fecha_publicacion", $fechaFinal, PDO::PARAM_STR);
+			$rango -> bindParam(":fecha_publicacion", $fechaFinal, PDO::PARAM_STR);
 
-			$stmt -> execute();
+			$rango -> execute();
 
-			return $stmt -> fetchAll();
+			return $rango -> fetchAll();
 
 		}else{
 
@@ -54,12 +41,12 @@ class ModeloLibros{
 
 			if($fechaFinalMasUno == $fechaActualMasUno){
 
-				$stmt = db::conectar()->prepare("SELECT * FROM $tabla  WHERE fecha_publicacion BETWEEN '$fechaInicial' AND '$fechaFinalMasUno'");
+				$stmt = Conexion::conectar()->prepare("SELECT * FROM $tabla  WHERE fecha_publicacion BETWEEN '$fechaInicial' AND '$fechaFinalMasUno'");
 
 			}else{
 
 
-				$stmt = db::conectar()->prepare("SELECT * FROM $tabla  WHERE fecha_publicacion BETWEEN '$fechaInicial' AND '$fechaFinal'");
+				$stmt =Conexion::conectar()->prepare("SELECT * FROM $tabla  WHERE fecha_publicacion BETWEEN '$fechaInicial' AND '$fechaFinal'");
 
 			}
 		
@@ -70,4 +57,19 @@ class ModeloLibros{
 		}
 
 	}
+
 }
+	$arrayFechas = array();
+
+foreach ($respuesta as $key => $value) {
+
+	#Capturamos sólo el año y el mes
+	$fecha = substr($value["fecha_publicacion"],0,7);
+
+	#Introducir las fechas en arrayFechas
+	array_push($arrayFechas, $fecha);
+}
+$noRepetirFechas = array_unique($arrayFechas);
+
+
+?>
