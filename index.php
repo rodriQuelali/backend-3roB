@@ -1,5 +1,16 @@
 <?php
+		require_once "controller/listarLibroController.php";
+		
 
-echo "holaaa backend";
+		header('Access-Control-Allow-Origin: *');
+		
+
+		$data = Libro::RegistrarLibro();
+		//$data = Libro::RegistrarLibro();
+		$data=Libro::FiltrarLibroPorCategoria();
+		echo ($data);
+		
+
+		?>
 
 ?>
